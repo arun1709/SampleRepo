@@ -39,16 +39,5 @@ public class MyProductServiceImpl implements MyProductService {
 		Optional<MyProduct> product = myProdRepo.findById(prodId);				
 		return product;
 	}
-	/*
-	@Override
-	public boolean removeMyProduct(long prodId)
-	{
-		Optional<MyProduct> product = myProdRepo.findById(prodId);
-		boolean isExist = product.isPresent();
-		if(isExist){
-			myProdRepo.deleteById(prodId);
-		}		
-		return isExist;
-	}*/
 
 }
