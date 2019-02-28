@@ -15,51 +15,51 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.epam.course.attributes.ProductCodes;
 import com.epam.course.helper.ProductHelper;
-import com.epam.course.model.MyProduct;
-import com.epam.course.service.MyProductService;
+import com.epam.course.model.Product;
+import com.epam.course.service.ProductService;
 
 @RestController
 @RequestMapping("/api")
-public class MyProductsController {
+public class ProductsController {
 	
 	@Autowired
-	private transient MyProductService myProdService;
+	private transient ProductService myProdService;
 	
 	
-	@GetMapping("/myProducts")
-	public ResponseEntity<List<MyProduct>> getMyProducts()	{
+	@GetMapping("/products")
+	public ResponseEntity<List<Product>> getProducts()	{
 		
-		if(!myProdService.getMyProducts().isEmpty()) {
-			return ResponseEntity.ok(myProdService.getMyProducts());
+		if(!myProdService.getProducts().isEmpty()) {
+			return ResponseEntity.ok(myProdService.getProducts());
 		} else {			
 			return ResponseEntity.ok(ProductHelper.buildErrMsg());
 		}
 		
 	}
 	
-	@PostMapping("/myProducts")
-	public ResponseEntity<MyProduct> saveMyProducts(@RequestBody MyProduct product)
+	@PostMapping("/products")
+	public ResponseEntity<Product> saveProducts(@RequestBody Product product)
 	{	
-		return ResponseEntity.ok(myProdService.saveMyProduct(product));
+		return ResponseEntity.ok(myProdService.saveProduct(product));
 		
 	}
 	
-	@GetMapping("/myProducts/{prodId}")
-	public ResponseEntity<Optional<MyProduct>> getMyProduct(final @PathVariable long prodId)
+	@GetMapping("/products/{prodId}")
+	public ResponseEntity<Optional<Product>> getProduct(final @PathVariable long prodId)
 	{
-		Optional<MyProduct> product = myProdService.getMyProduct(prodId);
+		Optional<Product> product = myProdService.getProduct(prodId);
 		if(!product.isPresent()) {	
 			return ResponseEntity.ok(ProductHelper.buildErrMsg(prodId, ProductCodes.PROD_NOT_AVAIL));
 		} else {
-			return ResponseEntity.ok(myProdService.getMyProduct(prodId));
+			return ResponseEntity.ok(myProdService.getProduct(prodId));
 		}
 		
 	}
 	
-	@DeleteMapping("/myProducts/{prodId}")
-	public ResponseEntity<?> removeMyProduct(final @PathVariable long prodId)
+	@DeleteMapping("/products/{prodId}")
+	public ResponseEntity<?> removeProduct(final @PathVariable long prodId)
 	{
-		Optional<MyProduct> product = myProdService.removeMyProduct(prodId);
+		Optional<Product> product = myProdService.removeProduct(prodId);
 		
 		if(!product.isPresent())			
 			return ResponseEntity.ok(ProductHelper.buildErrMsg(prodId, ProductCodes.PROD_NOT_DEL));

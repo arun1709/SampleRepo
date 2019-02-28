@@ -22,24 +22,24 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import com.epam.course.controller.MyProductsController;
-import com.epam.course.model.MyProduct;
-import com.epam.course.service.MyProductService;
+import com.epam.course.controller.ProductsController;
+import com.epam.course.model.Product;
+import com.epam.course.service.ProductService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@WebMvcTest(MyProductsController.class)
-public class MyProductControllerTests {
+@WebMvcTest(ProductsController.class)
+public class ProductControllerTests {
 	
 	@Autowired
 	private MockMvc mockMvc;
 
 	@MockBean
-	private transient MyProductService myProdService;
+	private transient ProductService myProdService;
 	
-	static MyProduct mockProd1 = new MyProduct(1, "prod name", "prod desc");
-	static MyProduct mockProd2 = new MyProduct(2, "prod name2", "prod desc2");
-	static MyProduct mockProd3 = new MyProduct(3, "", "prod desc3");
-	static List<MyProduct> originalProdList = new ArrayList<>();
+	static Product mockProd1 = new Product(1, "prod name", "prod desc");
+	static Product mockProd2 = new Product(2, "prod name2", "prod desc2");
+	static Product mockProd3 = new Product(3, "", "prod desc3");
+	static List<Product> originalProdList = new ArrayList<>();
 	static JSONObject mockProdJson;
 	
 	@BeforeClass
@@ -54,14 +54,14 @@ public class MyProductControllerTests {
 	}
 	
 	@Test
-	public void getMyProductsTest() throws Exception {
+	public void getProductsTest() throws Exception {
 		
-		Mockito.when(myProdService.getMyProducts()).thenReturn((originalProdList));
+		Mockito.when(myProdService.getProducts()).thenReturn((originalProdList));
 
 		JSONArray mockResponse = new JSONArray();
 		mockResponse.put(mockProdJson);
 
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/myProducts")
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/products")
 		        .accept(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();	
@@ -70,14 +70,14 @@ public class MyProductControllerTests {
 	}
 	
 	@Test
-	public void getMyProductTest() throws Exception {		
+	public void getProductTest() throws Exception {		
 		
-		Mockito.when(myProdService.getMyProduct(1L)).thenReturn(Optional.of(mockProd1));
+		Mockito.when(myProdService.getProduct(1L)).thenReturn(Optional.of(mockProd1));
 
 		JSONArray mockResponse = new JSONArray();
 		mockResponse.put(mockProdJson);		
 
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/myProducts/1")
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/products/1")
 		        .accept(MediaType.APPLICATION_JSON);
 		
 		MvcResult result = mockMvc.perform(requestBuilder).andReturn();	
@@ -86,16 +86,16 @@ public class MyProductControllerTests {
 	}
 	
 	@Test
-	public void saveMyProductsTest() throws Exception {		
+	public void saveProductsTest() throws Exception {		
 		
-		Mockito.when(myProdService.saveMyProduct(Mockito.any())).thenReturn(mockProd2);
+		Mockito.when(myProdService.saveProduct(Mockito.any())).thenReturn(mockProd2);
 
 		JSONObject mockSuceessResponse = new JSONObject();
 		mockSuceessResponse.accumulate("prodId", 2);
 		mockSuceessResponse.accumulate("name", "prod name2");
 		mockSuceessResponse.accumulate("desc", "prod desc2");
 		
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/api/myProducts").content(mockSuceessResponse.toString())
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.post("/api/products").content(mockSuceessResponse.toString())
 		        .contentType(MediaType.APPLICATION_JSON)
 		        .accept(MediaType.APPLICATION_JSON);
 		
@@ -105,20 +105,19 @@ public class MyProductControllerTests {
 	}
 	
 	@Test
-	public void removeMyProductTest() throws Exception {			
+	public void removeProductTest() throws Exception {			
 		
-		Mockito.when(myProdService.removeMyProduct(3L)).thenReturn(Optional.of(mockProd3));
+		Mockito.when(myProdService.removeProduct(3L)).thenReturn(Optional.of(mockProd3));
 
 		JSONObject mockSuceessResponse = new JSONObject();
 		mockSuceessResponse.accumulate("prodId", 3);
 		mockSuceessResponse.accumulate("name", null);
 		mockSuceessResponse.accumulate("desc", "Product deleted successfully");
 		
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/api/myProducts/3").content(mockSuceessResponse.toString())			
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/api/products/3").content(mockSuceessResponse.toString())			
 		      	.accept(MediaType.APPLICATION_JSON);
 		
-		MvcResult result = mockMvc.perform(requestBuilder).andReturn();		
-		System.out.println("original Response --> "+ result.getResponse().getContentAsString());
+		MvcResult result = mockMvc.perform(requestBuilder).andReturn();			
 
 		JSONAssert.assertEquals(mockSuceessResponse.toString(), result.getResponse().getContentAsString(), false);
 	}

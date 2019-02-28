@@ -4,24 +4,29 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-public class MyProduct {	
+@Table(name ="Product")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class Product {	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long prodId;
 	private String name;
-	private String desc;
+	private String details;
 	
-	public MyProduct() {		
+	public Product() {		
 	}
 	
-	public MyProduct(long prodId, String name, String desc) {
+	public Product(long prodId, String name, String desc) {
 		super();
 		this.prodId = prodId;
 		this.name = name;
-		this.desc = desc;
+		this.details = desc;
 	}
 	
 	public long getProdId() {
@@ -41,11 +46,11 @@ public class MyProduct {
 	}
 
 	public String getDesc() {
-		return desc;
+		return details;
 	}
 
 	public void setDesc(String desc) {
-		this.desc = desc;
+		this.details = desc;
 	}
 
 }

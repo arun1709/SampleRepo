@@ -1,6 +1,6 @@
 package com.epam.course.exception;
 
-import com.epam.course.model.MyProduct;
+import com.epam.course.model.Product;
 
 public class ProductNotFoundException extends Exception {
 	
@@ -17,14 +17,14 @@ public class ProductNotFoundException extends Exception {
 		super(errMsg);
 	}
 	
-	public MyProduct buildErr(String errMsg) {		
-		MyProduct prdErrMsg = new MyProduct();
+	public Product buildErr(String errMsg) {		
+		Product prdErrMsg = new Product();
 		prdErrMsg.setDesc(errMsg);		
 		return prdErrMsg;			
 	}
 	
-	public MyProduct buildErr(long prodId,String errMsg) {		
-		MyProduct prdErrMsg = new MyProduct();
+	public Product buildErr(long prodId,String errMsg) {		
+		Product prdErrMsg = new Product();
 		prdErrMsg.setDesc(errMsg);
 		prdErrMsg.setProdId(prodId);
 		return prdErrMsg;			

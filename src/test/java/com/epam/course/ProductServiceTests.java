@@ -16,46 +16,46 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.epam.course.model.MyProduct;
-import com.epam.course.repository.MyProductRepository;
-import com.epam.course.service.MyProductServiceImpl;
+import com.epam.course.model.Product;
+import com.epam.course.repository.ProductRepository;
+import com.epam.course.service.ProductServiceImpl;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class MyProductServiceTests {
+public class ProductServiceTests {
 
 	@Mock
-	private MyProductRepository prodRepo;
+	private ProductRepository prodRepo;
 
 	@InjectMocks
-	private MyProductServiceImpl productService;
+	private ProductServiceImpl productService;
 
-	MyProduct mockProd1 = new MyProduct(1, "prod name1", "prod desc1");
-	MyProduct mockProd2 = new MyProduct(2, "prod name2", "prod desc2");
+	Product mockProd1 = new Product(1, "prod name1", "prod desc1");
+	Product mockProd2 = new Product(2, "prod name2", "prod desc2");
 
 	@Test
-	public void getMyProducts() {
-		List<MyProduct> mockProdList = new ArrayList<>();
+	public void getMyProductsTest() {
+		List<Product> mockProdList = new ArrayList<>();
 		mockProdList.add(mockProd2);
 		mockProdList.add(mockProd1);
 
 		when(prodRepo.findAll()).thenReturn(mockProdList);
-		assertEquals(mockProdList, productService.getMyProducts());
+		assertEquals(mockProdList, productService.getProducts());
 	}
 
 	@Test
-	public void getMyProduct() {
+	public void getMyProductTest() {
 
 		when(prodRepo.findById(anyLong())).thenReturn(Optional.of(mockProd1));
-		assertEquals(mockProd1, productService.getMyProduct(1L).get());
+		assertEquals(mockProd1, productService.getProduct(1L).get());
 
 	}
 
 	@Test
-	public void saveMyProduct() {
+	public void saveMyProductTest() {
 
 		when(prodRepo.save(mockProd1)).thenReturn(mockProd1);
-		assertEquals(mockProd1, productService.saveMyProduct(mockProd1));
+		assertEquals(mockProd1, productService.saveProduct(mockProd1));
 
 	}	
 
@@ -63,7 +63,7 @@ public class MyProductServiceTests {
 	public void testNoSuchElementException() {
 
 		when(prodRepo.findById(anyLong())).thenReturn(Optional.empty());
-		Optional<MyProduct> prod = productService.getMyProduct(1L);
+		Optional<Product> prod = productService.getProduct(1L);
 		prod.get();
 	}
 
