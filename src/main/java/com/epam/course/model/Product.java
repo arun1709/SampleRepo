@@ -18,7 +18,8 @@ public class Product {
 	private long prodId;
 	private String name;
 	private String details;
-	
+	private String detail2;
+
 	public Product() {		
 	}
 	
@@ -51,6 +52,13 @@ public class Product {
 
 	public void setDesc(String desc) {
 		this.details = desc;
+	}
+	public String getDetail2() {
+		return detail2;
+	}
+
+	public void setDetail2(String detail2) {
+		this.detail2 = detail2;
 	}
 
 }
