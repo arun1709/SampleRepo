@@ -24,8 +24,8 @@ public class MyProductsController {
 					"<body>\n" + 
 					"\n" + 
 					"<h2>Cloud N DevOps Hackathon Event 2019</h2>\n" + 
-					"<div class=\"w3-container w3-blue\">\n" + 
-					"<p font>Team A :  Blue deployment application</p>\n" + 
+					"<div class=\"w3-container w3-green\">\n" + 
+					"<p font>Team A :  Green deployment application</p>\n" + 
 					"</div>\n" + 
 					"</body>\n" + 
 					"</html>");	
