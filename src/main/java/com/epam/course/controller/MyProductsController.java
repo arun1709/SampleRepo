@@ -27,7 +27,21 @@ public class MyProductsController {
 	
 	@GetMapping("/status")
 	public ResponseEntity<String> getDeployStatus()	{					
-			return ResponseEntity.ok("<H1>Blue deployment<H1>");	
+			return ResponseEntity.ok("<!DOCTYPE html>\n" + 
+					"<html>\n" + 
+					"<head>\n" + 
+					"<title>Cloud N DevOps Hackathon Event 2019</title>\n" + 
+					"<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" + 
+					"<link rel=\"stylesheet\" href=\"https://www.w3schools.com/w3css/4/w3.css\">\n" + 
+					"</head>\n" + 
+					"<body>\n" + 
+					"\n" + 
+					"<h2>Cloud N DevOps Hackathon Event 2019</h2>\n" + 
+					"<div class=\"w3-container w3-blue\">\n" + 
+					"<p font>Team A :  Blue deployment application</p>\n" + 
+					"</div>\n" + 
+					"</body>\n" + 
+					"</html>");	
 	}
 	
 	@GetMapping("/myProducts")
