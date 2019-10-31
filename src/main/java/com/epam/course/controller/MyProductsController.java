@@ -25,6 +25,10 @@ public class MyProductsController {
 	@Autowired
 	private transient MyProductService myProdService;
 	
+	@GetMapping("/status")
+	public ResponseEntity<String> getDeployStatus()	{					
+			return ResponseEntity.ok("<H1>Blue deployment<H1>");	
+	}
 	
 	@GetMapping("/myProducts")
 	public ResponseEntity<List<MyProduct>> getMyProducts()	{
