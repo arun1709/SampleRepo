@@ -1,3 +1,3 @@
-FROM openjdk:8-jdk-alpine
+FROM openjdk:8
 COPY target/*.jar myproduct-service-0.1-Release.jar
-ENTRYPOINT ["run.sh"]
+ENTRYPOINT ["java", "-jar", "myproduct-service-0.1-Release.jar" ]
